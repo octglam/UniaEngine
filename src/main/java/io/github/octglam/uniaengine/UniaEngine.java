@@ -85,6 +85,8 @@ public class UniaEngine implements Runnable {
         scene.addSpace(terrain);
         scene.addSpace(terrain2);
 
+        window.imguiLayer.selectSpace(space);
+
         while(!window.shouldClose()){
             space.rotation.add(new Vector3f(0,1,0));
             space.position.z+=0.02f;

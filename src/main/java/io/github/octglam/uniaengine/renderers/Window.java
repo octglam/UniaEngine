@@ -108,7 +108,7 @@ public class Window {
     private void initImGui(){
         ImGui.createContext();
         ImGuiIO io = ImGui.getIO();
-        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
+        //io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
     }
 
     public void init(){
