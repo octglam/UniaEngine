@@ -1,5 +1,6 @@
 package io.github.octglam.uniaengine;
 
+import io.github.octglam.uniaengine.imguis.ImGuiLayer;
 import io.github.octglam.uniaengine.scenes.AbstractScene;
 import io.github.octglam.uniaengine.scenes.Scene;
 import io.github.octglam.uniaengine.spaces.guis.widgets.Button;
@@ -14,6 +15,7 @@ import io.github.octglam.uniaengine.spaces.Model;
 import io.github.octglam.uniaengine.spaces.guis.widgets.WinWidget;
 import io.github.octglam.uniaengine.spaces.terrains.Terrain;
 import io.github.octglam.uniaengine.textures.ModelTexture;
+import io.github.octglam.uniaengine.utils.EngineVars;
 import io.github.octglam.uniaengine.utils.ModelLoader;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -26,7 +28,7 @@ public class UniaEngine implements Runnable {
     private final Thread gameThread = new Thread(this, "UniaEngine");
 
     public String[] args;
-    public Window window = new Window(1480, 800, "UniaEngine");
+    public Window window = new Window(1480, 800, "UniaEngine", new ImGuiLayer());
     public Loader loader = new Loader();
     public MasterRenderer masterRenderer = new MasterRenderer(window, loader);
 
@@ -36,6 +38,8 @@ public class UniaEngine implements Runnable {
     }
 
     public void run() {
+        EngineVars.isEditor = true;
+
         window.init();
         masterRenderer.init();
 

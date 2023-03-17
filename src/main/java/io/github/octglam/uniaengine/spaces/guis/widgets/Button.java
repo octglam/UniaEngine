@@ -3,6 +3,7 @@ package io.github.octglam.uniaengine.spaces.guis.widgets;
 import io.github.octglam.uniaengine.inputs.Input;
 import io.github.octglam.uniaengine.renderers.Loader;
 import io.github.octglam.uniaengine.spaces.guis.GuiBase;
+import io.github.octglam.uniaengine.utils.EngineVars;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -31,12 +32,14 @@ public class Button extends GuiBase {
         if(iEvent != null) iEvent1 = (IButtonEvent) iEvent;
         if(Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)){
             isPressed = true;
+
             if(iEvent != null) iEvent1.onClick(this);
             onClick();
 
             if(pressAppearance != null) colour.set(pressAppearance.get(2).x, pressAppearance.get(2).y, pressAppearance.get(2).z, colour.w);
         } else if(isPressed && !Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
             isPressed = false;
+            
             if(iEvent != null) iEvent1.onUnPressed(this);
             onUnPressed();
 

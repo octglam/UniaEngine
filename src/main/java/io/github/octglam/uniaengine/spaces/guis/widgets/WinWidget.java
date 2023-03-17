@@ -4,6 +4,7 @@ import io.github.octglam.uniaengine.inputs.Input;
 import io.github.octglam.uniaengine.renderers.Loader;
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
 import io.github.octglam.uniaengine.spaces.guis.GuiBase;
+import io.github.octglam.uniaengine.utils.EngineVars;
 import io.github.octglam.uniaengine.utils.Maths;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -20,12 +21,16 @@ public class WinWidget extends GuiBase {
     private boolean isEnteredEdgeBtn = false;
     private Vector2f dragOffset = new Vector2f();
 
+    public boolean canProcessInEditor = false;
+
     public WinWidget(String name, Vector2f position, Vector2f scale, IEvent iEvent, Loader loader) {
         super(name, -999, position, scale, iEvent, loader);
 
         hiddenbtn = new Button(name+"_hiddenbtn", loader.loadTexture("res/textures/widgets/hiddenbtn.png"), new Vector2f(position.x+scale.x-0.03f, position.y+scale.y), new Vector2f(0.018f, 0.03f),
                 new Button.IButtonEvent() {
                     public void toVisible(GuiBase gui){
+                        if(EngineVars.isEditor && !canProcessInEditor) return;
+
                         setVisible(!isVisible());
                         for(GuiBase child : getChildren().values()){
                             if(child.equals(edge) || child.equals(gui)) continue;
@@ -73,6 +78,8 @@ public class WinWidget extends GuiBase {
                     @Override
                     public void onClick(GuiBase gui) {
                         if(isEnteredEdgeBtn) return;
+                        if(EngineVars.isEditor && !canProcessInEditor) return;
+
                         isDragged = true;
                         dragOffset = Maths.getNormalizedMousePosition();
                         GuiBase win = renderer.renderGuis.get(name);
