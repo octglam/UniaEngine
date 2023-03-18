@@ -5,7 +5,7 @@ import io.github.octglam.uniaengine.spaces.guis.GuiBase;
 import io.github.octglam.uniaengine.shaders.StaticShader;
 import io.github.octglam.uniaengine.spaces.threeD.Camera;
 import io.github.octglam.uniaengine.spaces.threeD.SunLight;
-import io.github.octglam.uniaengine.spaces.threeD.Space;
+import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;
@@ -19,7 +19,7 @@ public class MasterRenderer {
     private final StaticRenderer staticRenderer;
     private final GuiRenderer guiRenderer;
 
-    public final HashMap<String, Space> renderSpaces = new HashMap<>();
+    public final HashMap<String, Space3D> renderSpaces = new HashMap<>();
     public final HashMap<String, GuiBase> renderGuis = new HashMap<>();
 
     public float sky_red = 0.6f;
@@ -80,8 +80,8 @@ public class MasterRenderer {
         renderSpaces.clear();
     }
 
-    public void processSpace(Space space){
-        renderSpaces.put(space.name, space);
+    public void processSpace(Space3D space3D){
+        renderSpaces.put(space3D.name, space3D);
     }
 
     public void processGui(GuiBase gui){

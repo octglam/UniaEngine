@@ -3,6 +3,7 @@ package io.github.octglam.uniaengine.spaces.guis.widgets;
 import io.github.octglam.uniaengine.inputs.Input;
 import io.github.octglam.uniaengine.renderers.Loader;
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
+import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.spaces.guis.GuiBase;
 import io.github.octglam.uniaengine.utils.EngineVars;
 import io.github.octglam.uniaengine.utils.Maths;
@@ -32,9 +33,12 @@ public class WinWidget extends GuiBase {
                         if(EngineVars.isEditor && !canProcessInEditor) return;
 
                         setVisible(!isVisible());
-                        for(GuiBase child : getChildren().values()){
-                            if(child.equals(edge) || child.equals(gui)) continue;
-                            child.setVisible(isVisible());
+                        for(Space bchild : getChildren().values()){
+                            if(bchild instanceof GuiBase) {
+                                GuiBase child = (GuiBase) bchild;
+                                if (child.equals(edge) || child.equals(gui)) continue;
+                                child.setVisible(isVisible());
+                            }
                         }
                     }
 

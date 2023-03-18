@@ -4,13 +4,13 @@ import imgui.ImGui;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImFloat;
 import imgui.type.ImString;
-import io.github.octglam.uniaengine.spaces.threeD.Space;
+import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import org.joml.Vector3f;
 
 public class ImGuiLayer {
     private boolean showText = false;
 
-    private Space selectedSpace;
+    private Space3D selectedSpace3D;
     private ImString selectedSpaceName = new ImString("                                                                                                                                ");
     private ImFloat[] selectedSpacePos = new ImFloat[3];
     private ImFloat[] selectedSpaceRot = new ImFloat[3];
@@ -29,10 +29,10 @@ public class ImGuiLayer {
     }
 
     private void setSelectedSpaceData(){
-        selectedSpace.name = selectedSpaceName.get();
-        selectedSpace.position = new Vector3f(selectedSpacePos[0].get(),selectedSpacePos[1].get(),selectedSpacePos[2].get());
-        selectedSpace.rotation = new Vector3f(selectedSpaceRot[0].get(),selectedSpaceRot[1].get(),selectedSpaceRot[2].get());
-        selectedSpace.scale = new Vector3f(selectedSpaceScale[0].get(),selectedSpaceScale[1].get(),selectedSpaceScale[2].get());
+        selectedSpace3D.name = selectedSpaceName.get();
+        selectedSpace3D.position = new Vector3f(selectedSpacePos[0].get(),selectedSpacePos[1].get(),selectedSpacePos[2].get());
+        selectedSpace3D.rotation = new Vector3f(selectedSpaceRot[0].get(),selectedSpaceRot[1].get(),selectedSpaceRot[2].get());
+        selectedSpace3D.scale = new Vector3f(selectedSpaceScale[0].get(),selectedSpaceScale[1].get(),selectedSpaceScale[2].get());
     }
 
     private void spacePosRotScale(){
@@ -60,7 +60,7 @@ public class ImGuiLayer {
         ImGui.inputFloat("sY", selectedSpaceScale[1], ImGuiInputTextFlags.AlwaysOverwrite);
         ImGui.inputFloat("sZ", selectedSpaceScale[2], ImGuiInputTextFlags.AlwaysOverwrite);
 
-        if(selectedSpace != null){
+        if(selectedSpace3D != null){
             setSelectedSpaceData();
         }
     }
@@ -87,21 +87,21 @@ public class ImGuiLayer {
         ImGui.end();
     }
 
-    public void selectSpace(Space space){
-        selectedSpace = space;
+    public void selectSpace(Space3D space3D){
+        selectedSpace3D = space3D;
 
-        selectedSpaceName.set(space.name);
+        selectedSpaceName.set(space3D.name);
 
-        selectedSpacePos[0].set(space.position.x);
-        selectedSpacePos[1].set(space.position.y);
-        selectedSpacePos[2].set(space.position.z);
+        selectedSpacePos[0].set(space3D.position.x);
+        selectedSpacePos[1].set(space3D.position.y);
+        selectedSpacePos[2].set(space3D.position.z);
 
-        selectedSpaceRot[0].set(space.rotation.x);
-        selectedSpaceRot[1].set(space.rotation.y);
-        selectedSpaceRot[2].set(space.rotation.z);
+        selectedSpaceRot[0].set(space3D.rotation.x);
+        selectedSpaceRot[1].set(space3D.rotation.y);
+        selectedSpaceRot[2].set(space3D.rotation.z);
 
-        selectedSpaceScale[0].set(space.scale.x);
-        selectedSpaceScale[1].set(space.scale.y);
-        selectedSpaceScale[2].set(space.scale.z);
+        selectedSpaceScale[0].set(space3D.scale.x);
+        selectedSpaceScale[1].set(space3D.scale.y);
+        selectedSpaceScale[2].set(space3D.scale.z);
     }
 }

@@ -4,7 +4,7 @@ import io.github.octglam.uniaengine.inputs.Input;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
-public class Camera extends Space {
+public class Camera extends Space3D {
     public float FOV = 70f;
     public float NEAR_PLANE = 0.1f;
     public float FAR_PLANE = 1000f;

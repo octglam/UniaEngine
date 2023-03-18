@@ -4,7 +4,7 @@ import io.github.octglam.uniaengine.models.RawModel;
 import io.github.octglam.uniaengine.models.TexturedModel;
 import io.github.octglam.uniaengine.shaders.StaticShader;
 import io.github.octglam.uniaengine.spaces.threeD.Model;
-import io.github.octglam.uniaengine.spaces.threeD.Space;
+import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import io.github.octglam.uniaengine.textures.ModelTexture;
 import io.github.octglam.uniaengine.utils.Transformation;
 import org.joml.Matrix4f;
@@ -34,19 +34,19 @@ public class StaticRenderer {
         shader.stop();
     }
 
-    public void render(HashMap<String, Space> spaces){
+    public void render(HashMap<String, Space3D> spaces){
         for(String name : spaces.keySet()){
-            Space space = spaces.get(name);
+            Space3D space3D = spaces.get(name);
 
-            boolean isModel = space instanceof Model;
+            boolean isModel = space3D instanceof Model;
 
-            if(isModel) prepareTexturedModel(((Model) space).model);
+            if(isModel) prepareTexturedModel(((Model) space3D).model);
 
-            prepareInstance(space);
-            if(isModel) GL11.glDrawElements(GL11.GL_TRIANGLES, ((Model) space).model.rawModel.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+            prepareInstance(space3D);
+            if(isModel) GL11.glDrawElements(GL11.GL_TRIANGLES, ((Model) space3D).model.rawModel.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
 
             if(isModel) unbindTexturedModel();
-            space.update();
+            space3D.update();
         }
     }
 
@@ -67,8 +67,8 @@ public class StaticRenderer {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.texture.textureID);
     }
 
-    public void prepareInstance(Space space){
-        Matrix4f transformationMatrix = Transformation.createTransformationMatrix(space.position, space.rotation, space.scale);
+    public void prepareInstance(Space3D space3D){
+        Matrix4f transformationMatrix = Transformation.createTransformationMatrix(space3D.position, space3D.rotation, space3D.scale);
         shader.loadTransformationMatrix(transformationMatrix);
     }
 

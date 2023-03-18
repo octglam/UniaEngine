@@ -2,28 +2,27 @@ package io.github.octglam.uniaengine.spaces.guis;
 
 import io.github.octglam.uniaengine.renderers.Loader;
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
+import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.utils.Maths;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.util.HashMap;
 
-public class GuiBase {
-    public String name;
+public class GuiBase extends Space {
     public int texture;
     public Vector2f position, prevPosition, positionD, scale;
     public IEvent iEvent;
     public int zIndex = 0;
-    public GuiBase parent;
 
     private boolean isVisible = true;
-    private HashMap<String, GuiBase> children = new HashMap<>();
 
     public Vector4f colour = new Vector4f(1,1,1,1);
 
     private Loader loader;
 
     public GuiBase(String name, int texture, Vector2f position, Vector2f scale, IEvent iEvent, Loader loader){
+        super(name);
         this.name = name;
         this.loader = loader;
         if(texture != -999) this.texture = texture;
@@ -56,11 +55,15 @@ public class GuiBase {
         updateMouseEntered();
         onUpdate();
 
+        HashMap<String, Space> children = getChildren();
         for(String childname : children.keySet()){
-            GuiBase child = children.get(childname);
-            child.zIndex = child.zIndex+zIndex+1;
-            child.position.x+=positionD.x;
-            child.position.y+=positionD.y;
+            Space bchild = children.get(childname);
+            if(bchild instanceof GuiBase) {
+                GuiBase child = (GuiBase) bchild;
+                child.zIndex = child.zIndex + zIndex + 1;
+                child.position.x += positionD.x;
+                child.position.y += positionD.y;
+            }
         }
         prevPosition = position;
     }
@@ -69,22 +72,17 @@ public class GuiBase {
     public void onMouseExited() {}
     public void onUpdate(){}
     public void onPrepare(MasterRenderer renderer){
-        for(String childname : getChildren().keySet()){
-            GuiBase child = getChildren().get(childname);
-            renderer.processGui(child);
-            child.onPrepare(renderer);
+        HashMap<String, Space> children = getChildren();
+        for(String childname : children.keySet()){
+            Space bchild = children.get(childname);
+            if(bchild instanceof GuiBase) {
+                GuiBase child = (GuiBase) bchild;
+                renderer.processGui(child);
+                child.onPrepare(renderer);
+            }
         }
     }
     public void onRender(){}
-
-    public void addChild(GuiBase child){
-        child.parent = this;
-        children.put(child.name, child);
-    }
-
-    public HashMap<String, GuiBase> getChildren(){
-        return children;
-    }
 
     public void setVisible(boolean visible){
         isVisible = visible;
