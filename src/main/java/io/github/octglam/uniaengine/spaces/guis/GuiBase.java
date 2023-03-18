@@ -1,18 +1,12 @@
 package io.github.octglam.uniaengine.spaces.guis;
 
-import io.github.octglam.uniaengine.inputs.Input;
 import io.github.octglam.uniaengine.renderers.Loader;
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
-import io.github.octglam.uniaengine.renderers.Window;
-import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.utils.Maths;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class GuiBase {
     public String name;

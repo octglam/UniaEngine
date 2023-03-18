@@ -1,10 +1,8 @@
 package io.github.octglam.uniaengine.scenes;
 
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
-import io.github.octglam.uniaengine.spaces.Camera;
-import io.github.octglam.uniaengine.spaces.Space;
-import io.github.octglam.uniaengine.spaces.SunLight;
-import io.github.octglam.uniaengine.spaces.guis.GuiBase;
+import io.github.octglam.uniaengine.spaces.threeD.Camera;
+import io.github.octglam.uniaengine.spaces.threeD.SunLight;
 
 public class Scene extends AbstractScene {
     public Scene(String name, MasterRenderer masterRenderer, SunLight sun, Camera camera){

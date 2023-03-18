@@ -1,7 +1,7 @@
 package io.github.octglam.uniaengine.shaders;
 
-import io.github.octglam.uniaengine.spaces.Camera;
-import io.github.octglam.uniaengine.spaces.SunLight;
+import io.github.octglam.uniaengine.spaces.threeD.Camera;
+import io.github.octglam.uniaengine.spaces.threeD.SunLight;
 import io.github.octglam.uniaengine.utils.Transformation;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

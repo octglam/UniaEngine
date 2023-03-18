@@ -1,9 +1,9 @@
-package io.github.octglam.uniaengine.spaces.terrains;
+package io.github.octglam.uniaengine.spaces.threeD.terrains;
 
 import io.github.octglam.uniaengine.models.RawModel;
 import io.github.octglam.uniaengine.models.TexturedModel;
 import io.github.octglam.uniaengine.renderers.Loader;
-import io.github.octglam.uniaengine.spaces.Model;
+import io.github.octglam.uniaengine.spaces.threeD.Model;
 import io.github.octglam.uniaengine.textures.ModelTexture;
 import io.github.octglam.uniaengine.utils.OpenSimplex2S;
 import org.joml.Vector3f;

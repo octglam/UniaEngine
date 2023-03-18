@@ -1,12 +1,8 @@
-package io.github.octglam.uniaengine.spaces;
+package io.github.octglam.uniaengine.spaces.threeD;
 
-import io.github.octglam.uniaengine.models.TexturedModel;
-import io.github.octglam.uniaengine.spaces.guis.GuiBase;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Space {
     public String name;

@@ -1,9 +1,9 @@
 package io.github.octglam.uniaengine.scenes;
 
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
-import io.github.octglam.uniaengine.spaces.Camera;
-import io.github.octglam.uniaengine.spaces.Space;
-import io.github.octglam.uniaengine.spaces.SunLight;
+import io.github.octglam.uniaengine.spaces.threeD.Camera;
+import io.github.octglam.uniaengine.spaces.threeD.Space;
+import io.github.octglam.uniaengine.spaces.threeD.SunLight;
 import io.github.octglam.uniaengine.spaces.guis.GuiBase;
 
 import java.util.HashMap;

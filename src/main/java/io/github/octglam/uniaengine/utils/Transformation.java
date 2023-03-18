@@ -1,6 +1,6 @@
 package io.github.octglam.uniaengine.utils;
 
-import io.github.octglam.uniaengine.spaces.Camera;
+import io.github.octglam.uniaengine.spaces.threeD.Camera;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

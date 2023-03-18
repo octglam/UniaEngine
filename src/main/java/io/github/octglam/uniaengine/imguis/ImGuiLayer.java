@@ -4,7 +4,7 @@ import imgui.ImGui;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImFloat;
 import imgui.type.ImString;
-import io.github.octglam.uniaengine.spaces.Space;
+import io.github.octglam.uniaengine.spaces.threeD.Space;
 import org.joml.Vector3f;
 
 public class ImGuiLayer {

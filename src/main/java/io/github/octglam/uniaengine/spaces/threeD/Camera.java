@@ -1,7 +1,6 @@
-package io.github.octglam.uniaengine.spaces;
+package io.github.octglam.uniaengine.spaces.threeD;
 
 import io.github.octglam.uniaengine.inputs.Input;
-import io.github.octglam.uniaengine.renderers.Window;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 

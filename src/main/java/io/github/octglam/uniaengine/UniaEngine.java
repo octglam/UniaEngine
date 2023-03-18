@@ -4,16 +4,15 @@ import io.github.octglam.uniaengine.imguis.ImGuiLayer;
 import io.github.octglam.uniaengine.scenes.AbstractScene;
 import io.github.octglam.uniaengine.scenes.Scene;
 import io.github.octglam.uniaengine.spaces.guis.widgets.Button;
-import io.github.octglam.uniaengine.spaces.guis.GuiBase;
 import io.github.octglam.uniaengine.models.TexturedModel;
 import io.github.octglam.uniaengine.renderers.Loader;
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
 import io.github.octglam.uniaengine.renderers.Window;
-import io.github.octglam.uniaengine.spaces.Camera;
-import io.github.octglam.uniaengine.spaces.SunLight;
-import io.github.octglam.uniaengine.spaces.Model;
+import io.github.octglam.uniaengine.spaces.threeD.Camera;
+import io.github.octglam.uniaengine.spaces.threeD.SunLight;
+import io.github.octglam.uniaengine.spaces.threeD.Model;
 import io.github.octglam.uniaengine.spaces.guis.widgets.WinWidget;
-import io.github.octglam.uniaengine.spaces.terrains.Terrain;
+import io.github.octglam.uniaengine.spaces.threeD.terrains.Terrain;
 import io.github.octglam.uniaengine.textures.ModelTexture;
 import io.github.octglam.uniaengine.utils.EngineVars;
 import io.github.octglam.uniaengine.utils.ModelLoader;
@@ -22,7 +21,6 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class UniaEngine implements Runnable {
     private final Thread gameThread = new Thread(this, "UniaEngine");

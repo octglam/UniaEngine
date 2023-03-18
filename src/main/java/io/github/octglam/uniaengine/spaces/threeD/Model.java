@@ -1,4 +1,4 @@
-package io.github.octglam.uniaengine.spaces;
+package io.github.octglam.uniaengine.spaces.threeD;
 
 import io.github.octglam.uniaengine.models.TexturedModel;
 import org.joml.Vector3f;
