@@ -1,6 +1,7 @@
 package io.github.octglam.uniaengine.scenes;
 
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
+import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.spaces.threeD.Camera;
 import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import io.github.octglam.uniaengine.spaces.threeD.SunLight;
@@ -13,8 +14,7 @@ public abstract class AbstractScene {
     public SunLight sun;
     public Camera camera;
 
-    public HashMap<String, Space3D> spaces = new HashMap<>();
-    public HashMap<String, GuiBase> guis = new HashMap<>();
+    public HashMap<String, Space> spaces = new HashMap<>();
 
     private MasterRenderer renderer;
 
@@ -29,25 +29,16 @@ public abstract class AbstractScene {
         onUpdate();
 
         for(String spaceName : spaces.keySet()){
-            Space3D space3D = spaces.get(spaceName);
+            Space space = spaces.get(spaceName);
 
-            renderer.processSpace(space3D);
-        }
-
-        for(String guiName : guis.keySet()){
-            GuiBase gui = guis.get(guiName);
-
-            renderer.processGui(gui);
+            renderer.processSpace(space);
         }
 
         renderer.render(sun, camera);
     }
 
-    public void addSpace(Space3D space3D) {
-        spaces.put(space3D.name, space3D);
-    }
-    public void addGui(GuiBase gui) {
-        guis.put(gui.name, gui);
+    public void addSpace(Space space) {
+        spaces.put(space.name, space);
     }
 
     public abstract void onUpdate();

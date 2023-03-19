@@ -3,6 +3,7 @@ package io.github.octglam.uniaengine.renderers;
 import io.github.octglam.uniaengine.models.RawModel;
 import io.github.octglam.uniaengine.models.TexturedModel;
 import io.github.octglam.uniaengine.shaders.StaticShader;
+import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.spaces.threeD.Model;
 import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import io.github.octglam.uniaengine.textures.ModelTexture;
@@ -34,9 +35,12 @@ public class StaticRenderer {
         shader.stop();
     }
 
-    public void render(HashMap<String, Space3D> spaces){
+    public void render(HashMap<String, Space> spaces){
         for(String name : spaces.keySet()){
-            Space3D space3D = spaces.get(name);
+            Space space = spaces.get(name);
+            if(!(space instanceof Space3D)) continue;
+
+            Space3D space3D = (Space3D) space;
 
             boolean isModel = space3D instanceof Model;
 

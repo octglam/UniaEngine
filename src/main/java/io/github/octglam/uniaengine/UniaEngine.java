@@ -77,7 +77,7 @@ public class UniaEngine implements Runnable {
         hierarchy.colour = new Vector4f(0.3f, 0.3f, 0.3f, 1.0f);
         hierarchy.addChild(testBtn);
 
-        scene.addGui(hierarchy);
+        scene.addSpace(hierarchy);
         scene.addSpace(space);
         scene.addSpace(sword);
         scene.addSpace(terrain);

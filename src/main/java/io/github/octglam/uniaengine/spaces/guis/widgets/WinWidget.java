@@ -86,7 +86,7 @@ public class WinWidget extends GuiBase {
 
                         isDragged = true;
                         dragOffset = Maths.getNormalizedMousePosition();
-                        GuiBase win = renderer.renderGuis.get(name);
+                        GuiBase win = (GuiBase) renderer.spaces.get(name);
                         win.position = new Vector2f(dragOffset.x, dragOffset.y - scale.y);
                     }
 
@@ -112,6 +112,6 @@ public class WinWidget extends GuiBase {
 
         edge.zIndex = zIndex+1;
         this.renderer = renderer;
-        renderer.processGui(edge);
+        renderer.processSpace(edge);
     }
 }

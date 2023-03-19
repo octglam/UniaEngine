@@ -2,6 +2,8 @@ package io.github.octglam.uniaengine.spaces.guis;
 
 import io.github.octglam.uniaengine.models.RawModel;
 import io.github.octglam.uniaengine.renderers.Loader;
+import io.github.octglam.uniaengine.renderers.MasterRenderer;
+import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.utils.Transformation;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.*;
@@ -14,9 +16,11 @@ public class GuiRenderer {
     private RawModel quad;
     private GuiShader shader;
     private Loader loader;
+    private MasterRenderer renderer;
 
-    public GuiRenderer(Loader loader){
+    public GuiRenderer(Loader loader, MasterRenderer renderer){
         this.loader = loader;
+        this.renderer = renderer;
     }
 
     public void init(){
@@ -25,7 +29,14 @@ public class GuiRenderer {
         shader.init();
     }
 
-    public void render(List<GuiBase> pg){
+    public void render(List<Space> spaces){
+        List<GuiBase> pg = new ArrayList<>();
+        for(Space space : spaces){
+            if(space instanceof GuiBase){
+                pg.add((GuiBase) space);
+            }
+        }
+
         List<GuiBase> guis = new ArrayList<>(pg);
         guis.sort(Comparator.comparingInt(o -> o.zIndex));
 

@@ -1,5 +1,6 @@
 package io.github.octglam.uniaengine.renderers;
 
+import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.spaces.guis.GuiRenderer;
 import io.github.octglam.uniaengine.spaces.guis.GuiBase;
 import io.github.octglam.uniaengine.shaders.StaticShader;
@@ -19,8 +20,7 @@ public class MasterRenderer {
     private final StaticRenderer staticRenderer;
     private final GuiRenderer guiRenderer;
 
-    public final HashMap<String, Space3D> renderSpaces = new HashMap<>();
-    public final HashMap<String, GuiBase> renderGuis = new HashMap<>();
+    public final HashMap<String, Space> spaces = new HashMap<>();
 
     public float sky_red = 0.6f;
     public float sky_green = 0.78f;
@@ -31,7 +31,7 @@ public class MasterRenderer {
     public MasterRenderer(Window window, Loader loader){
         this.window = window;
         staticRenderer = new StaticRenderer(window, shader);
-        guiRenderer = new GuiRenderer(loader);
+        guiRenderer = new GuiRenderer(loader, this);
     }
 
     public void init(){
@@ -64,28 +64,27 @@ public class MasterRenderer {
         shader.loadLight(sun);
         setCurrentCamera(camera);
         updateCurrentCamera();
-        staticRenderer.render(renderSpaces);
+        staticRenderer.render(spaces);
         shader.stop();
         camera.update();
 
-        for(int i=renderGuis.values().size()-1; i>=0; i--){
-            GuiBase gui = new ArrayList<>(renderGuis.values()).get(i);
-            gui.onPrepare(this);
+        for(int i = 0; i < spaces.values().stream().toList().size(); i++){
+            Space space = spaces.values().stream().toList().get(i);
+            if(space instanceof GuiBase){
+                GuiBase gui = (GuiBase) space;
+
+                gui.onPrepare(this);
+            }
         }
 
-        guiRenderer.render(renderGuis.values().stream().toList());
+        guiRenderer.render(spaces.values().stream().toList());
 
         window.update();
-        renderGuis.clear();
-        renderSpaces.clear();
+        spaces.clear();
     }
 
-    public void processSpace(Space3D space3D){
-        renderSpaces.put(space3D.name, space3D);
-    }
-
-    public void processGui(GuiBase gui){
-        renderGuis.put(gui.name, gui);
+    public void processSpace(Space space){
+        spaces.put(space.name, space);
     }
 
     public void cleanUp(){

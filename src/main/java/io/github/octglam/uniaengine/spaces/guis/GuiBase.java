@@ -77,7 +77,7 @@ public class GuiBase extends Space {
             Space bchild = children.get(childname);
             if(bchild instanceof GuiBase) {
                 GuiBase child = (GuiBase) bchild;
-                renderer.processGui(child);
+                renderer.processSpace(child);
                 child.onPrepare(renderer);
             }
         }
