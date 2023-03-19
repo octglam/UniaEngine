@@ -12,6 +12,7 @@ import io.github.octglam.uniaengine.spaces.threeD.Camera;
 import io.github.octglam.uniaengine.spaces.threeD.SunLight;
 import io.github.octglam.uniaengine.spaces.threeD.Model;
 import io.github.octglam.uniaengine.spaces.guis.widgets.WinWidget;
+import io.github.octglam.uniaengine.spaces.threeD.physics.collisions.AABB;
 import io.github.octglam.uniaengine.spaces.threeD.terrains.Terrain;
 import io.github.octglam.uniaengine.textures.ModelTexture;
 import io.github.octglam.uniaengine.utils.EngineVars;
@@ -52,15 +53,14 @@ public class UniaEngine implements Runnable {
         scene.camera.canMove = true;
 
         // spaces
-        TexturedModel swordModel = new TexturedModel(ModelLoader.loadModel("res/models/sword/sword.gltf", loader),
-                new ModelTexture(loader.loadTexture("res/textures/sword/Object001_mtl_baseColor.jpeg")));
         TexturedModel robotModel = new TexturedModel(ModelLoader.loadModel("res/models/medical_robot/scene.gltf", loader),
                 new ModelTexture(loader.loadTexture("res/textures/medical_robot/medbot.003_baseColor.png")));
         robotModel.texture.shineDamper = 50;
         robotModel.texture.reflectivity = 5;
 
         Model space = new Model("robot", robotModel, new Vector3f(0,0,-25), new Vector3f(0, 0, 0), new Vector3f(1,1,1));
-        Model sword = new Model("sword", swordModel, new Vector3f(0,0,-25), new Vector3f(0, 0, 0), new Vector3f(1,1,1));
+
+        Model space2 = new Model("robot2", robotModel, new Vector3f(0,0,-24.5f), new Vector3f(0, 0, 0), new Vector3f(1,1,1));
 
         Terrain terrain = new Terrain("terrain1", new Vector3f(-1f, -1f, -1f), new Vector3f(0,0,0), new Vector3f(1,1,1),
                 loader, new ModelTexture(loader.loadTexture("res/textures/grass.png")), 800f);
@@ -88,7 +88,7 @@ public class UniaEngine implements Runnable {
 
         scene.addSpace(hierarchy);
         scene.addSpace(space);
-        scene.addSpace(sword);
+        scene.addSpace(space2);
         scene.addSpace(terrain);
         scene.addSpace(terrain2);
 
@@ -96,10 +96,12 @@ public class UniaEngine implements Runnable {
 
         LOGGER.info("Initialized!");
 
-        while(!window.shouldClose()){
-            space.rotation.add(new Vector3f(0,1,0));
-            space.position.z+=0.02f;
+        AABB box1 = new AABB(new Vector3f(0,0,0), new Vector3f(1,1,1));
+        AABB box2 = new AABB(new Vector3f(1,0,0), new Vector3f(1,1,1));
+        if(box1.isIntersecting(box2).isIntersecting)
+            System.out.println("test");
 
+        while(!window.shouldClose()){
             scene.update();
         }
 

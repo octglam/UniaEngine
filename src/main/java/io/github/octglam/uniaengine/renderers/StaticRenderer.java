@@ -43,9 +43,7 @@ public class StaticRenderer {
     public void render(HashMap<String, Space> spaces){
         for(String name : spaces.keySet()){
             Space space = spaces.get(name);
-            if(!(space instanceof Space3D)) continue;
-
-            Space3D space3D = (Space3D) space;
+            if(!(space instanceof Space3D space3D)) continue;
 
             boolean isModel = space3D instanceof Model;
 
@@ -54,8 +52,13 @@ public class StaticRenderer {
             prepareInstance(space3D);
             if(isModel) GL11.glDrawElements(GL11.GL_TRIANGLES, ((Model) space3D).model.rawModel.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
 
-            if(isModel) unbindTexturedModel();
             space3D.update();
+
+            if(isModel) unbindTexturedModel();
+
+            if(!space3D.getChildren().isEmpty()){
+                render(space3D.getChildren());
+            }
         }
     }
 

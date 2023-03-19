@@ -4,6 +4,7 @@ import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.spaces.guis.GuiBase;
 import io.github.octglam.uniaengine.shaders.StaticShader;
 import io.github.octglam.uniaengine.spaces.threeD.Camera;
+import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import io.github.octglam.uniaengine.spaces.threeD.SunLight;
 import org.joml.Vector3f;
 import org.joml.Vector4f;

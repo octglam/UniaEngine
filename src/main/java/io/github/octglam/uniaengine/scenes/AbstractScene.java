@@ -39,6 +39,7 @@ public abstract class AbstractScene {
 
     public void addSpace(Space space) {
         spaces.put(space.name, space);
+        space.scene = this;
     }
 
     public abstract void onUpdate();

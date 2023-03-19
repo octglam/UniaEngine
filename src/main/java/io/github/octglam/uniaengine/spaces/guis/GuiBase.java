@@ -58,8 +58,7 @@ public class GuiBase extends Space {
         HashMap<String, Space> children = getChildren();
         for(String childname : children.keySet()){
             Space bchild = children.get(childname);
-            if(bchild instanceof GuiBase) {
-                GuiBase child = (GuiBase) bchild;
+            if(bchild instanceof GuiBase child) {
                 child.zIndex = child.zIndex + zIndex + 1;
                 child.position.x += positionD.x;
                 child.position.y += positionD.y;

@@ -1,6 +1,7 @@
 package io.github.octglam.uniaengine.spaces;
 
 import io.github.octglam.uniaengine.imguis.ImGuiLayer;
+import io.github.octglam.uniaengine.scenes.AbstractScene;
 import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.LinkedHashMap;
 public class Space {
     public String name;
     public Space parent;
+    public AbstractScene scene;
 
     private HashMap<String, Space> children = new HashMap<>();
 
