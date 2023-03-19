@@ -13,13 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ImGuiLayer {
     private static final Logger LOGGER = LoggerFactory.getLogger("ImGuiLayer");
     private boolean showText = false;
 
     private Space selectedSpace;
-    private HashMap<String, Object> selectedSpaceData = new HashMap<>();
+    private LinkedHashMap<String, Object> selectedSpaceData = new LinkedHashMap<>();
 
     public ImGuiLayer(){
         LOGGER.info("ImGuiLayer Initialized!");
@@ -93,7 +94,7 @@ public class ImGuiLayer {
         space.giveData();
         selectedSpace = space;
 
-        HashMap<String, Object> dummyDataMap = new HashMap<>();
+        LinkedHashMap<String, Object> dummyDataMap = new LinkedHashMap<>();
         for(String name : space.hierarchyData.keySet()){
             Object value = space.hierarchyData.get(name);
 
@@ -109,6 +110,7 @@ public class ImGuiLayer {
                 dummyDataMap.put(name, new VectorObject3(new ImFloat(vec.x), new ImFloat(vec.y), new ImFloat(vec.z)));
             }
         }
-        selectedSpaceData = Utils.getHashMapInReverseOrder(dummyDataMap);
+        //selectedSpaceData = Utils.getHashMapInReverseOrder(dummyDataMap);
+        selectedSpaceData = dummyDataMap;
     }
 }

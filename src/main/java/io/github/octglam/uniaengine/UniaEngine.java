@@ -47,7 +47,7 @@ public class UniaEngine implements Runnable {
         masterRenderer.init();
 
         // scenes
-        AbstractScene scene = new Scene("test", masterRenderer, new SunLight("Sun", new Vector3f(0, 500, -20), new Vector3f(1,1,1)),
+        AbstractScene scene = new Scene("test", masterRenderer, new SunLight("Sun", new Vector3f(0, 100, -20), new Vector3f(1,1,1)),
                 new Camera("EditorCamera", new Vector3f(0,0,2), new Vector3f(0,0,0)));
         scene.camera.canMove = true;
 
@@ -66,6 +66,10 @@ public class UniaEngine implements Runnable {
                 loader, new ModelTexture(loader.loadTexture("res/textures/grass.png")), 800f);
         Terrain terrain2 = new Terrain("terrain2", new Vector3f(0f, -1f, -1f), new Vector3f(0,0,0), new Vector3f(1,1,1),
                 loader, new ModelTexture(loader.loadTexture("res/textures/grass.png")), 800f);
+        terrain.generateHeightMap = true;
+        terrain2.generateHeightMap = true;
+        terrain.generateTerrain();
+        terrain2.generateTerrain();
 
         // guis
         Button testBtn = new Button("btn", -999, new Vector2f(-0.7f, 0f), new Vector2f(0.1f, 0.2f),

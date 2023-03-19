@@ -4,6 +4,7 @@ import io.github.octglam.uniaengine.imguis.ImGuiLayer;
 import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Space {
     public String name;
@@ -11,7 +12,7 @@ public class Space {
 
     private HashMap<String, Space> children = new HashMap<>();
 
-    public HashMap<String, Object> hierarchyData = new HashMap<>();
+    public LinkedHashMap<String, Object> hierarchyData = new LinkedHashMap<>();
 
     public Space(String name){
         this.name = name;

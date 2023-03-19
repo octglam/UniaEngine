@@ -40,11 +40,15 @@ public class Space3D extends Space {
     public void giveData() {
         super.giveData();
         hierarchyData.put("position", position);
+        hierarchyData.put("rotation", rotation);
+        hierarchyData.put("scale", scale);
     }
 
     @Override
     public void linkHierarchyData() {
         super.linkHierarchyData();
         position = (Vector3f) hierarchyData.get("position");
+        rotation = (Vector3f) hierarchyData.get("rotation");
+        scale = (Vector3f) hierarchyData.get("scale");
     }
 }

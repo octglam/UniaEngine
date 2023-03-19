@@ -10,6 +10,9 @@ public class Camera extends Space3D {
     public float FAR_PLANE = 1000f;
     public float mouseSensitivity = 0.05f;
     public float moveSpeed = 0.1f;
+    public float runSpeed = moveSpeed*5f;
+
+    public float currentSpeed = moveSpeed;
 
     public boolean canMove = false;
 
@@ -25,23 +28,29 @@ public class Camera extends Space3D {
             rotation.y+=Input.getMouseDX()*mouseSensitivity;
             rotation.x+=Input.getMouseDY()*mouseSensitivity;
 
+            if(Input.isKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT)){
+                currentSpeed = runSpeed;
+            } else {
+                currentSpeed = moveSpeed;
+            }
+
             if(Input.isKeyPressed(GLFW.GLFW_KEY_W)){
-                position.z-=Math.cos(Math.toRadians(rotation.y)) * moveSpeed;
-                position.x+=Math.sin(Math.toRadians(rotation.y)) * moveSpeed;
-                position.y-=Math.sin(Math.toRadians(rotation.x)) * moveSpeed;
+                position.z-=Math.cos(Math.toRadians(rotation.y)) * currentSpeed;
+                position.x+=Math.sin(Math.toRadians(rotation.y)) * currentSpeed;
+                position.y-=Math.sin(Math.toRadians(rotation.x)) * currentSpeed;
             }
             if(Input.isKeyPressed(GLFW.GLFW_KEY_S)){
-                position.z-=Math.cos(Math.toRadians(rotation.y)) * -moveSpeed;
-                position.x+=Math.sin(Math.toRadians(rotation.y)) * -moveSpeed;
-                position.y-=Math.sin(Math.toRadians(rotation.x)) * -moveSpeed;
+                position.z-=Math.cos(Math.toRadians(rotation.y)) * -currentSpeed;
+                position.x+=Math.sin(Math.toRadians(rotation.y)) * -currentSpeed;
+                position.y-=Math.sin(Math.toRadians(rotation.x)) * -currentSpeed;
             }
             if(Input.isKeyPressed(GLFW.GLFW_KEY_A)){
-                position.z-=Math.sin(Math.toRadians(rotation.y)) * moveSpeed;
-                position.x-=Math.cos(Math.toRadians(rotation.y)) * moveSpeed;
+                position.z-=Math.sin(Math.toRadians(rotation.y)) * currentSpeed;
+                position.x-=Math.cos(Math.toRadians(rotation.y)) * currentSpeed;
             }
             if(Input.isKeyPressed(GLFW.GLFW_KEY_D)){
-                position.z+=Math.sin(Math.toRadians(rotation.y)) * moveSpeed;
-                position.x+=Math.cos(Math.toRadians(rotation.y)) * moveSpeed;
+                position.z+=Math.sin(Math.toRadians(rotation.y)) * currentSpeed;
+                position.x+=Math.cos(Math.toRadians(rotation.y)) * currentSpeed;
             }
         } else {
             Input.setXXMode(GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);

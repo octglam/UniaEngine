@@ -18,29 +18,33 @@ public class Terrain extends Model {
     public float MAX_HEIGHT = 20;
     public float MAX_PIXEL_COLOUR = 256 * 256 * 256;
 
+    public boolean generateHeightMap = false;
+
     public ModelTexture texture;
+
+    private Loader loader;
 
     public Terrain(String name, Vector3f position, Vector3f rotation, Vector3f scale, Loader loader, ModelTexture texture, float size){
         super(name, null, new Vector3f(position.x * size, position.y, position.z * size), rotation, scale);
         this.texture = texture;
         this.SIZE = size;
-        this.model = new TexturedModel(generateTerrain(loader), texture);
-        this.model.textureCoordinatesMul = 80.0f;
+        this.loader = loader;
+        generateTerrain();
     }
 
-    private RawModel generateTerrain(Loader loader){
-        BufferedImage image = new BufferedImage((int) SIZE, (int) SIZE, BufferedImage.TYPE_INT_RGB);
-        for (int y = 0; y < SIZE; y++)
-        {
-            for (int x = 0; x < SIZE; x++)
-            {
-                double value = OpenSimplex2S.noise3_ImproveXY(0, x * FREQUENCY, y * FREQUENCY, 0.0);
-                int rgb = 0x010101 * (int)((value + 1) * 127.5);
-                image.setRGB(x, y, rgb);
+    public RawModel generateTerrain(){
+        BufferedImage image = null;
+        if(generateHeightMap) {
+            image = new BufferedImage((int) SIZE, (int) SIZE, BufferedImage.TYPE_INT_RGB);
+            for (int y = 0; y < SIZE; y++) {
+                for (int x = 0; x < SIZE; x++) {
+                    double value = OpenSimplex2S.noise3_ImproveXY(0, x * FREQUENCY, y * FREQUENCY, 0.0);
+                    int rgb = 0x010101 * (int) ((value + 1) * 127.5);
+                    image.setRGB(x, y, rgb);
+                }
             }
+            VERTEX_COUNT = image.getHeight();
         }
-
-        VERTEX_COUNT = image.getHeight();
 
         int count = VERTEX_COUNT * VERTEX_COUNT;
         float[] vertices = new float[count * 3];
@@ -51,11 +55,19 @@ public class Terrain extends Model {
         for(int i=0;i<VERTEX_COUNT;i++){
             for(int j=0;j<VERTEX_COUNT;j++){
                 vertices[vertexPointer*3] = (float)j/((float)VERTEX_COUNT - 1) * SIZE;
-                vertices[vertexPointer*3+1] = getHeight(j, i, image);
+                if(generateHeightMap) vertices[vertexPointer*3+1] = getHeight(j, i, image);
+                else vertices[vertexPointer*3+1] = 0;
                 vertices[vertexPointer*3+2] = (float)i/((float)VERTEX_COUNT - 1) * SIZE;
-                normals[vertexPointer*3] = 0;
-                normals[vertexPointer*3+1] = 1;
-                normals[vertexPointer*3+2] = 0;
+                if(generateHeightMap) {
+                    Vector3f normal = calculateNormal(j, i, image);
+                    normals[vertexPointer * 3] = normal.x;
+                    normals[vertexPointer * 3 + 1] = normal.y;
+                    normals[vertexPointer * 3 + 2] = normal.z;
+                } else {
+                    normals[vertexPointer * 3] = 0;
+                    normals[vertexPointer * 3 + 1] = 1;
+                    normals[vertexPointer * 3 + 2] = 0;
+                }
                 textureCoords[vertexPointer*2] = (float)j/((float)VERTEX_COUNT - 1);
                 textureCoords[vertexPointer*2+1] = (float)i/((float)VERTEX_COUNT - 1);
                 vertexPointer++;
@@ -76,7 +88,10 @@ public class Terrain extends Model {
                 indices[pointer++] = bottomRight;
             }
         }
-        return loader.loadToVAO(vertices, textureCoords, normals, indices);
+        RawModel rawModel = loader.loadToVAO(vertices, textureCoords, normals, indices);
+        this.model = new TexturedModel(rawModel, texture);
+        this.model.textureCoordinatesMul = 80.0f;
+        return rawModel;
     }
 
     private float getHeight(int x, int z, BufferedImage image){
@@ -88,5 +103,15 @@ public class Terrain extends Model {
         height /= MAX_PIXEL_COLOUR/2f;
         height *= MAX_HEIGHT;
         return height;
+    }
+
+    private Vector3f calculateNormal(int x, int z, BufferedImage image){
+        float heightL = getHeight(x-1, z, image);
+        float heightR = getHeight(x+1, z, image);
+        float heightD = getHeight(x, z-1, image);
+        float heightU = getHeight(x, z+1, image);
+        Vector3f normal = new Vector3f(heightL-heightR, 2f, heightD-heightU);
+        normal.normalize();
+        return normal;
     }
 }
