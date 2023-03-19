@@ -6,6 +6,7 @@ import imgui.type.ImFloat;
 import imgui.type.ImInt;
 import imgui.type.ImString;
 import io.github.octglam.uniaengine.spaces.Space;
+import io.github.octglam.uniaengine.utils.Utils;
 import io.github.octglam.uniaengine.utils.VectorObject3;
 import org.joml.Vector3f;
 import org.slf4j.Logger;
@@ -47,7 +48,9 @@ public class ImGuiLayer {
         for(String name : selectedSpaceData.keySet()){
             Object value = selectedSpaceData.get(name);
 
-            ImGui.text(name + " : ");
+            String capitalize_name = Utils.capitalize(name);
+            String space_name = Utils.capitalizeNextSpace(capitalize_name.replace("_", " "));
+            ImGui.text(space_name + " : ");
 
             if(value instanceof ImString){
                 ImGui.inputText(name, (ImString) value, ImGuiInputTextFlags.AlwaysOverwrite);
@@ -60,6 +63,7 @@ public class ImGuiLayer {
                 ImGui.inputFloat(name+"Y", (ImFloat) vec.y, ImGuiInputTextFlags.AlwaysOverwrite);
                 ImGui.inputFloat(name+"Z", (ImFloat) vec.z, ImGuiInputTextFlags.AlwaysOverwrite);
             }
+            ImGui.separator();
         }
 
         setSelectedSpaceData();
@@ -69,8 +73,6 @@ public class ImGuiLayer {
         ImGui.begin("Hierarchy");
 
         spaceData();
-
-        ImGui.separator();
 
         if(ImGui.button("I am a button")){
             showText = true;

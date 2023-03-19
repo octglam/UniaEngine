@@ -18,11 +18,11 @@ public class Space {
     }
 
     public void giveData(){
-        hierarchyData.put("Name", name);
+        hierarchyData.put("name", name);
     }
 
     public void linkHierarchyData() {
-        this.name = (String) hierarchyData.get("Name");
+        this.name = (String) hierarchyData.get("name");
     }
 
     public void addChild(Space child){
