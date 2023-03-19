@@ -3,77 +3,66 @@ package io.github.octglam.uniaengine.imguis;
 import imgui.ImGui;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImFloat;
+import imgui.type.ImInt;
 import imgui.type.ImString;
+import io.github.octglam.uniaengine.inputs.Input;
+import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import org.joml.Vector3f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+
 public class ImGuiLayer {
     private static final Logger LOGGER = LoggerFactory.getLogger("ImGuiLayer");
     private boolean showText = false;
 
-    private Space3D selectedSpace3D;
-    private ImString selectedSpaceName = new ImString("                                                                                                                                ");
-    private ImFloat[] selectedSpacePos = new ImFloat[3];
-    private ImFloat[] selectedSpaceRot = new ImFloat[3];
-    private ImFloat[] selectedSpaceScale = new ImFloat[3];
+    private Space selectedSpace;
+    private HashMap<String, Object> selectedSpaceData = new HashMap<>();
 
     public ImGuiLayer(){
         LOGGER.info("ImGuiLayer Initialized!");
-
-        selectedSpacePos[0] = new ImFloat(0.0f);
-        selectedSpacePos[1] = new ImFloat(0.0f);
-        selectedSpacePos[2] = new ImFloat(0.0f);
-        selectedSpaceRot[0] = new ImFloat(0.0f);
-        selectedSpaceRot[1] = new ImFloat(0.0f);
-        selectedSpaceRot[2] = new ImFloat(0.0f);
-        selectedSpaceScale[0] = new ImFloat(0.0f);
-        selectedSpaceScale[1] = new ImFloat(0.0f);
-        selectedSpaceScale[2] = new ImFloat(0.0f);
     }
 
     private void setSelectedSpaceData(){
-        selectedSpace3D.name = selectedSpaceName.get();
-        selectedSpace3D.position = new Vector3f(selectedSpacePos[0].get(),selectedSpacePos[1].get(),selectedSpacePos[2].get());
-        selectedSpace3D.rotation = new Vector3f(selectedSpaceRot[0].get(),selectedSpaceRot[1].get(),selectedSpaceRot[2].get());
-        selectedSpace3D.scale = new Vector3f(selectedSpaceScale[0].get(),selectedSpaceScale[1].get(),selectedSpaceScale[2].get());
+        for(String name : selectedSpaceData.keySet()) {
+            Object value = selectedSpaceData.get(name);
+
+            if(value instanceof ImString){
+                selectedSpace.hierarchyData.put(name, ((ImString)(value)).get());
+            } else if(value instanceof ImFloat){
+                selectedSpace.hierarchyData.put(name, ((ImFloat)(value)).get());
+            } else if(value instanceof ImInt){
+                selectedSpace.hierarchyData.put(name, ((ImInt)(value)).get());
+            }
+        }
     }
 
-    private void spacePosRotScale(){
-        ImGui.text("Name : ");
-        ImGui.inputText("String", selectedSpaceName, ImGuiInputTextFlags.AlwaysOverwrite);
+    private void spaceData(){
+        if(selectedSpace == null) return;
 
-        ImGui.separator();
+        for(String name : selectedSpaceData.keySet()){
+            Object value = selectedSpaceData.get(name);
 
-        ImGui.text("Position : ");
-        ImGui.inputFloat("X", selectedSpacePos[0], ImGuiInputTextFlags.AlwaysOverwrite);
-        ImGui.inputFloat("Y", selectedSpacePos[1], ImGuiInputTextFlags.AlwaysOverwrite);
-        ImGui.inputFloat("Z", selectedSpacePos[2], ImGuiInputTextFlags.AlwaysOverwrite);
+            ImGui.text(name + " : ");
 
-        ImGui.separator();
-
-        ImGui.text("Rotation : ");
-        ImGui.inputFloat("rX", selectedSpaceRot[0], ImGuiInputTextFlags.AlwaysOverwrite);
-        ImGui.inputFloat("rY", selectedSpaceRot[1], ImGuiInputTextFlags.AlwaysOverwrite);
-        ImGui.inputFloat("rZ", selectedSpaceRot[2], ImGuiInputTextFlags.AlwaysOverwrite);
-
-        ImGui.separator();
-
-        ImGui.text("Scale : ");
-        ImGui.inputFloat("sX", selectedSpaceScale[0], ImGuiInputTextFlags.AlwaysOverwrite);
-        ImGui.inputFloat("sY", selectedSpaceScale[1], ImGuiInputTextFlags.AlwaysOverwrite);
-        ImGui.inputFloat("sZ", selectedSpaceScale[2], ImGuiInputTextFlags.AlwaysOverwrite);
-
-        if(selectedSpace3D != null){
-            setSelectedSpaceData();
+            if(value instanceof ImString){
+                ImGui.inputText(name, (ImString) value, ImGuiInputTextFlags.AlwaysOverwrite);
+            } else if(value instanceof ImFloat){
+                ImGui.inputFloat(name, (ImFloat) value, ImGuiInputTextFlags.AlwaysOverwrite);
+            } else if(value instanceof ImInt){
+                ImGui.inputInt(name, (ImInt) value, ImGuiInputTextFlags.AlwaysOverwrite);
+            }
         }
+
+        setSelectedSpaceData();
     }
 
     public void imgui(){
         ImGui.begin("Hierarchy");
 
-        spacePosRotScale();
+        spaceData();
 
         ImGui.separator();
 
@@ -92,21 +81,23 @@ public class ImGuiLayer {
         ImGui.end();
     }
 
-    public void selectSpace(Space3D space3D){
-        selectedSpace3D = space3D;
+    public void selectSpace(Space space){
+        selectedSpace = space;
 
-        selectedSpaceName.set(space3D.name);
+        HashMap<String, Object> dummyDataMap = new HashMap<>();
+        for(String name : space.hierarchyData.keySet()){
+            Object value = space.hierarchyData.get(name);
 
-        selectedSpacePos[0].set(space3D.position.x);
-        selectedSpacePos[1].set(space3D.position.y);
-        selectedSpacePos[2].set(space3D.position.z);
-
-        selectedSpaceRot[0].set(space3D.rotation.x);
-        selectedSpaceRot[1].set(space3D.rotation.y);
-        selectedSpaceRot[2].set(space3D.rotation.z);
-
-        selectedSpaceScale[0].set(space3D.scale.x);
-        selectedSpaceScale[1].set(space3D.scale.y);
-        selectedSpaceScale[2].set(space3D.scale.z);
+            if(value instanceof String){
+                ImString dummyString = new ImString("                                                     ");
+                dummyString.set(value);
+                dummyDataMap.put(name, dummyString);
+            } else if(value instanceof Float){
+                dummyDataMap.put(name, new ImFloat((Float) value));
+            } else if(value instanceof Integer){
+                dummyDataMap.put(name, new ImInt((Integer) value));
+            }
+        }
+        selectedSpaceData = dummyDataMap;
     }
 }

@@ -1,4 +1,4 @@
-package io.github.octglam.uniaengine.spaces.guis;
+package io.github.octglam.uniaengine.shaders;
 
 import io.github.octglam.uniaengine.shaders.ShaderProgram;
 import org.joml.Matrix4f;

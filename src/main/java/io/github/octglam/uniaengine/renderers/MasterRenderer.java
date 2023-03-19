@@ -1,19 +1,16 @@
 package io.github.octglam.uniaengine.renderers;
 
 import io.github.octglam.uniaengine.spaces.Space;
-import io.github.octglam.uniaengine.spaces.guis.GuiRenderer;
 import io.github.octglam.uniaengine.spaces.guis.GuiBase;
 import io.github.octglam.uniaengine.shaders.StaticShader;
 import io.github.octglam.uniaengine.spaces.threeD.Camera;
 import io.github.octglam.uniaengine.spaces.threeD.SunLight;
-import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MasterRenderer {

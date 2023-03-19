@@ -1,9 +1,9 @@
-package io.github.octglam.uniaengine.spaces.guis;
+package io.github.octglam.uniaengine.renderers;
 
 import io.github.octglam.uniaengine.models.RawModel;
-import io.github.octglam.uniaengine.renderers.Loader;
-import io.github.octglam.uniaengine.renderers.MasterRenderer;
 import io.github.octglam.uniaengine.spaces.Space;
+import io.github.octglam.uniaengine.spaces.guis.GuiBase;
+import io.github.octglam.uniaengine.shaders.GuiShader;
 import io.github.octglam.uniaengine.utils.Transformation;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.*;

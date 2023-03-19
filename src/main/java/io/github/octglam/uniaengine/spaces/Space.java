@@ -10,6 +10,8 @@ public class Space {
 
     private HashMap<String, Space> children = new HashMap<>();
 
+    public HashMap<String, Object> hierarchyData = new HashMap<>();
+
     public Space(String name){
         this.name = name;
     }
