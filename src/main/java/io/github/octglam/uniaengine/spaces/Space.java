@@ -1,5 +1,6 @@
 package io.github.octglam.uniaengine.spaces;
 
+import io.github.octglam.uniaengine.imguis.ImGuiLayer;
 import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 
 import java.util.HashMap;
@@ -14,6 +15,14 @@ public class Space {
 
     public Space(String name){
         this.name = name;
+    }
+
+    public void giveData(){
+        hierarchyData.put("Name", name);
+    }
+
+    public void linkHierarchyData() {
+        this.name = (String) hierarchyData.get("Name");
     }
 
     public void addChild(Space child){

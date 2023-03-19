@@ -88,9 +88,6 @@ public class UniaEngine implements Runnable {
         scene.addSpace(terrain);
         scene.addSpace(terrain2);
 
-        space.hierarchyData.put("Name", space.name);
-        space.hierarchyData.put("Position", space.position);
-
         window.imguiLayer.selectSpace(space);
 
         LOGGER.info("Initialized!");

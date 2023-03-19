@@ -38,6 +38,7 @@ public class ImGuiLayer {
                 selectedSpace.hierarchyData.put(name, new Vector3f(((ImFloat) vec.x).get(), ((ImFloat) vec.y).get(), ((ImFloat) vec.z).get()));
             }
         }
+        selectedSpace.linkHierarchyData();
     }
 
     private void spaceData(){
@@ -54,8 +55,7 @@ public class ImGuiLayer {
                 ImGui.inputFloat(name, (ImFloat) value, ImGuiInputTextFlags.AlwaysOverwrite);
             } else if(value instanceof ImInt){
                 ImGui.inputInt(name, (ImInt) value, ImGuiInputTextFlags.AlwaysOverwrite);
-            } else if(value instanceof VectorObject3){
-                VectorObject3 vec = (VectorObject3) value;
+            } else if(value instanceof VectorObject3 vec){
                 ImGui.inputFloat(name+"X", (ImFloat) vec.x, ImGuiInputTextFlags.AlwaysOverwrite);
                 ImGui.inputFloat(name+"Y", (ImFloat) vec.y, ImGuiInputTextFlags.AlwaysOverwrite);
                 ImGui.inputFloat(name+"Z", (ImFloat) vec.z, ImGuiInputTextFlags.AlwaysOverwrite);
@@ -88,6 +88,7 @@ public class ImGuiLayer {
     }
 
     public void selectSpace(Space space){
+        space.giveData();
         selectedSpace = space;
 
         HashMap<String, Object> dummyDataMap = new HashMap<>();

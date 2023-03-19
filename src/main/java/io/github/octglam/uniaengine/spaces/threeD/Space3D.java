@@ -35,4 +35,16 @@ public class Space3D extends Space {
         }
         prevPosition = position;
     }
+
+    @Override
+    public void giveData() {
+        super.giveData();
+        hierarchyData.put("Position", position);
+    }
+
+    @Override
+    public void linkHierarchyData() {
+        super.linkHierarchyData();
+        position = (Vector3f) hierarchyData.get("Position");
+    }
 }
