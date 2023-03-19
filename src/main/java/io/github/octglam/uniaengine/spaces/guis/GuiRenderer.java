@@ -7,12 +7,15 @@ import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.utils.Transformation;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class GuiRenderer {
+    private static final Logger LOGGER = LoggerFactory.getLogger("GuiRenderer");
     private RawModel quad;
     private GuiShader shader;
     private Loader loader;
@@ -27,6 +30,8 @@ public class GuiRenderer {
         quad = loader.loadToVAO(new float[]{-1, 1, -1, -1, 1, 1, 1, -1});
         shader = new GuiShader();
         shader.init();
+
+        LOGGER.info("Initialized!");
     }
 
     public void render(List<Space> spaces){

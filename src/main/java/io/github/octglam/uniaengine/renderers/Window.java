@@ -13,6 +13,8 @@ import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.*;
 import java.util.Objects;
@@ -24,6 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 public class Window {
+    private static final Logger LOGGER = LoggerFactory.getLogger("Window");
     public long handle;
     public static int width, height;
     public String title;
@@ -103,6 +106,8 @@ public class Window {
         GL.createCapabilities();
 
         glClearColor(rgba.x, rgba.y, rgba.z, rgba.w);
+
+        LOGGER.info("Initialized!");
     }
 
     private void initImGui(){

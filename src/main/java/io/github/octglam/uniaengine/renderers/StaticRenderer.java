@@ -13,10 +13,13 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
 public class StaticRenderer {
+    private static final Logger LOGGER = LoggerFactory.getLogger("StaticRenderer");
     private static final float DEFAULT_FOV = 70f;
     private static final float DEFAULT_NEAR_PLANE = 0.1f;
     private static final float DEFAULT_FAR_PLANE = 1000f;
@@ -33,6 +36,8 @@ public class StaticRenderer {
         shader.start();
         shader.loadProjectionMatrix(window.updateProjectionMatrix(DEFAULT_FOV, DEFAULT_NEAR_PLANE, DEFAULT_FAR_PLANE));
         shader.stop();
+
+        LOGGER.info("Initialized!");
     }
 
     public void render(HashMap<String, Space> spaces){

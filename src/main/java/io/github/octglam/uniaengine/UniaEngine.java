@@ -19,10 +19,13 @@ import io.github.octglam.uniaengine.utils.ModelLoader;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
 public class UniaEngine implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger("UniaEngine");
     private final Thread gameThread = new Thread(this, "UniaEngine");
 
     public String[] args;
@@ -36,6 +39,8 @@ public class UniaEngine implements Runnable {
     }
 
     public void run() {
+        LOGGER.info("UniaEngine Initializing...");
+
         EngineVars.isEditor = true;
 
         window.init();
@@ -85,12 +90,16 @@ public class UniaEngine implements Runnable {
 
         window.imguiLayer.selectSpace(space);
 
+        LOGGER.info("Initialized!");
+
         while(!window.shouldClose()){
             space.rotation.add(new Vector3f(0,1,0));
             space.position.z+=0.02f;
 
             scene.update();
         }
+
+        LOGGER.info("Clean upping...");
 
         loader.cleanUp();
         masterRenderer.cleanUp();

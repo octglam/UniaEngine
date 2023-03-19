@@ -10,11 +10,14 @@ import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MasterRenderer {
+    private static final Logger LOGGER = LoggerFactory.getLogger("MasterRenderer");
     private final StaticShader shader = new StaticShader();
     private final Window window;
     private final StaticRenderer staticRenderer;
@@ -39,6 +42,8 @@ public class MasterRenderer {
         shader.init();
         staticRenderer.init();
         guiRenderer.init();
+
+        LOGGER.info("MasterRenderer Initialized!");
     }
 
     public static void enableCulling(){

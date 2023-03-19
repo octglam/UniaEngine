@@ -6,8 +6,11 @@ import imgui.type.ImFloat;
 import imgui.type.ImString;
 import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import org.joml.Vector3f;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ImGuiLayer {
+    private static final Logger LOGGER = LoggerFactory.getLogger("ImGuiLayer");
     private boolean showText = false;
 
     private Space3D selectedSpace3D;
@@ -17,6 +20,8 @@ public class ImGuiLayer {
     private ImFloat[] selectedSpaceScale = new ImFloat[3];
 
     public ImGuiLayer(){
+        LOGGER.info("ImGuiLayer Initialized!");
+
         selectedSpacePos[0] = new ImFloat(0.0f);
         selectedSpacePos[1] = new ImFloat(0.0f);
         selectedSpacePos[2] = new ImFloat(0.0f);
