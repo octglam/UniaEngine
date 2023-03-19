@@ -1,4 +1,4 @@
-package io.github.octglam.uniaengine.utils;
+package io.github.octglam.uniaengine.utils.maths;
 
 import io.github.octglam.uniaengine.spaces.threeD.Camera;
 import org.joml.Matrix4f;

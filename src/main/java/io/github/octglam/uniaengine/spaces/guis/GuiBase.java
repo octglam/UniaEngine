@@ -3,7 +3,7 @@ package io.github.octglam.uniaengine.spaces.guis;
 import io.github.octglam.uniaengine.renderers.Loader;
 import io.github.octglam.uniaengine.renderers.MasterRenderer;
 import io.github.octglam.uniaengine.spaces.Space;
-import io.github.octglam.uniaengine.utils.Maths;
+import io.github.octglam.uniaengine.utils.maths.Maths;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 

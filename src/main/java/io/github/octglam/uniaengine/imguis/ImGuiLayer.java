@@ -7,7 +7,7 @@ import imgui.type.ImInt;
 import imgui.type.ImString;
 import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.utils.Utils;
-import io.github.octglam.uniaengine.utils.VectorObject3;
+import io.github.octglam.uniaengine.utils.maths.vectors.VectorObject3;
 import org.joml.Vector3f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,6 +109,6 @@ public class ImGuiLayer {
                 dummyDataMap.put(name, new VectorObject3(new ImFloat(vec.x), new ImFloat(vec.y), new ImFloat(vec.z)));
             }
         }
-        selectedSpaceData = dummyDataMap;
+        selectedSpaceData = Utils.getHashMapInReverseOrder(dummyDataMap);
     }
 }

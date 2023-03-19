@@ -1,5 +1,7 @@
 package io.github.octglam.uniaengine.utils;
 
+import java.util.*;
+
 public class Utils {
     public static String capitalize(String str)
     {
@@ -23,5 +25,15 @@ public class Utils {
             }
         }
         return sb.toString().trim();
+    }
+
+    public static <K, V> HashMap<K, V> getHashMapInReverseOrder(HashMap<K, V> map) {
+        List<K> keys = new ArrayList<>(map.keySet());
+        Collections.reverse(keys);
+        HashMap<K, V> newmap = new HashMap<>();
+        for (K key : keys) {
+            newmap.put(key, map.get(key));
+        }
+        return newmap;
     }
 }

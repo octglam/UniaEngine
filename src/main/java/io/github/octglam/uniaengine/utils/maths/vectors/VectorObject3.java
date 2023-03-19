@@ -1,4 +1,4 @@
-package io.github.octglam.uniaengine.utils;
+package io.github.octglam.uniaengine.utils.maths.vectors;
 
 public class VectorObject3 {
     public Object x;

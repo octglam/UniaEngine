@@ -7,7 +7,7 @@ import io.github.octglam.uniaengine.spaces.Space;
 import io.github.octglam.uniaengine.spaces.threeD.Model;
 import io.github.octglam.uniaengine.spaces.threeD.Space3D;
 import io.github.octglam.uniaengine.textures.ModelTexture;
-import io.github.octglam.uniaengine.utils.Transformation;
+import io.github.octglam.uniaengine.utils.maths.Transformation;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
