@@ -5,9 +5,8 @@ import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImFloat;
 import imgui.type.ImInt;
 import imgui.type.ImString;
-import io.github.octglam.uniaengine.inputs.Input;
 import io.github.octglam.uniaengine.spaces.Space;
-import io.github.octglam.uniaengine.spaces.threeD.Space3D;
+import io.github.octglam.uniaengine.utils.VectorObject3;
 import org.joml.Vector3f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +34,8 @@ public class ImGuiLayer {
                 selectedSpace.hierarchyData.put(name, ((ImFloat)(value)).get());
             } else if(value instanceof ImInt){
                 selectedSpace.hierarchyData.put(name, ((ImInt)(value)).get());
+            } else if(value instanceof VectorObject3 vec){
+                selectedSpace.hierarchyData.put(name, new Vector3f(((ImFloat) vec.x).get(), ((ImFloat) vec.y).get(), ((ImFloat) vec.z).get()));
             }
         }
     }
@@ -53,6 +54,11 @@ public class ImGuiLayer {
                 ImGui.inputFloat(name, (ImFloat) value, ImGuiInputTextFlags.AlwaysOverwrite);
             } else if(value instanceof ImInt){
                 ImGui.inputInt(name, (ImInt) value, ImGuiInputTextFlags.AlwaysOverwrite);
+            } else if(value instanceof VectorObject3){
+                VectorObject3 vec = (VectorObject3) value;
+                ImGui.inputFloat(name+"X", (ImFloat) vec.x, ImGuiInputTextFlags.AlwaysOverwrite);
+                ImGui.inputFloat(name+"Y", (ImFloat) vec.y, ImGuiInputTextFlags.AlwaysOverwrite);
+                ImGui.inputFloat(name+"Z", (ImFloat) vec.z, ImGuiInputTextFlags.AlwaysOverwrite);
             }
         }
 
@@ -96,6 +102,8 @@ public class ImGuiLayer {
                 dummyDataMap.put(name, new ImFloat((Float) value));
             } else if(value instanceof Integer){
                 dummyDataMap.put(name, new ImInt((Integer) value));
+            } else if(value instanceof Vector3f vec){
+                dummyDataMap.put(name, new VectorObject3(new ImFloat(vec.x), new ImFloat(vec.y), new ImFloat(vec.z)));
             }
         }
         selectedSpaceData = dummyDataMap;
